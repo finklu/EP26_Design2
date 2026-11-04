@@ -589,7 +589,7 @@
         [#align(center, stack(
           dir: ttb,
           spacing: 10pt,
-          image("assets/graphics/others/signature_" + str(index + 1) + ".png", height: 10mm),
+          image("assets/graphics/others/signature_" + str(index + 1) + ".jpg", height: 10mm),
           line(length: 100%,  stroke:0.5pt),
           author,
           [#meta.location, #date.display("[day]. [month repr:long] [year]")],
