@@ -25,4 +25,3 @@
 #import "@preview/zap:0.6.0"
 
 #include "chapters/report.typ"
-
