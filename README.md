@@ -1,85 +1,13 @@
-# typst-ECE-template
+# Evaluation Board with MSP430F5659 
 
-This Typst template is intended for writing a thesis or a lab report at the Electronic Engineering departement at FH JOANNEUM.
+This repository contains the lab documentation for the **Evaluation Board with MSP430F5659** lab project, developed as part of the Electronic Packaging and Advanced PCB Design course at **FH Joanneum University of Applied Sciences**.
 
-> [!WARNING]
-> This is still WIP, feel free to open issues or PRs!
-> This is not a real typst template yet.
+## 🛠 Project Overview
+The objective of this project is to design a prototype microcontroller evaluation board utilizing a target chip (`MSP430F5659IPZ`) and an open-source serialized emulation concept (`eZ-FET lite` via MSP430F5528).
 
-## Getting Started
-
-- Clone this repository: `git clone https://github.com/leotfh/typst-ECE-template`
-- If you want to have a more clean template without the visual aids in the header: checkout the `salloker` branch
-- Install VSCode
-- Install the [TinyMist](https://marketplace.visualstudio.com/items?itemName=myriad-dreamin.tinymist) extension for VSCode (provides preview, PDF rendering and linting capabilities)
-- Edit `main.typ` to fit your needs
-- Kind of optional, but installing the "Latin Modern Roman" font is recommended to get the original look of the IEE LaTeX template. You can download it [here](https://www.gust.org.pl/projects/e-foundry/latin-modern/download)
-
-## Thesis
-
-To use this template for a thesis, these are the relevant settings:
-
-```typst
-#show: doc => iee-thesis(
-  // Metadata
-  title: "Your Thesis Title",
-  subtitle: "Optional Subtitle",
-  authors: ("Forename Surename"),
-  supervisors: (
-    "Prof. Dr. Max Mustermann",
-    "Dipl.-Ing. Jane Doe"
-  ),
-  
-  // Program: PROGRAM_ECE, PROGRAM_MEC, PROGRAM_ECM, PROGRAM_STM, PROGRAM_EEM
-  program: PROGRAM_ECE, 
-  language: "en", // "en" or "de"
-  doc-type: "thesis", // "thesis" or "report"
-  show-list-of: ("figures"),
-  
-  // Content from abstract.tex and acknowledgments.tex
-  abstract-de: [
-    #include "/chapters/frontmatter/abstract_de.typ"
-  ],
-  abstract-en: [
-    #include "/chapters/frontmatter/abstract_en.typ"
-  ],
-  acknowledgments: [
-    #include "/chapters/frontmatter/acknowledgments.typ"
-  ],
-
-  doc
-)
-```
-
-## Lab report
-
-To use this template for a thesis, these are the relevant settings:
-
-```typst
-#show: doc => iee-thesis(
-  // Metadata
-  title: "Your Report Title",
-  subtitle: "Optional Subtitle",
-  authors: (
-    "Forename Surname",
-    "Second Author"
-  ),
-  supervisors: (
-    "Prof. Dr. Max Mustermann",
-    "Dipl.-Ing. Jane Doe"
-  ),
-  
-  // Program: PROGRAM_ECE, PROGRAM_MEC, PROGRAM_ECM, PROGRAM_STM, PROGRAM_EEM
-  program: PROGRAM_ECM,
-  language: "en", // "en" or "de"
-  doc-type: "report", // "thesis" or "report" -> auto-selects the matching title page
-  show-list-of: (),
-
-  doc
-)
-```
-
-## References
-
-- Florian Mayer's LaTeX template: <https://github.com/Electronic-and-Computer-Engineering/IEETemplate>
-- Another Typst template used at the IIT Institute: <https://git-iit.fh-joanneum.at/oss/thesis-template/-/blob/main/template/thesis.typ?ref_type=heads>
+### Key Features & Requirements:
+* **Target Microcontroller:** `MSP430F5659IPZ` driven by external quartz oscillators (XT1 for real clock $32.768\text{ kHz}$, XT2 for high-speed applications).
+* **Emulation & Communication:** On-board USB hub concept using the TUSB controller and an eZ-FET implementation for Spy-Bi-Wire/JTAG programming and UART communication.
+* **Power Management:** USB 2.0 bus-powered design utilizing an appropriate DC/DC supply circuit and a jumper to disconnect target supply if needed.
+* **User Interface:** On-board LEDs and push buttons, plus reset circuitry[cite: 2, 11].
+* **Breakout & Peripherals:** Extensive pin routing to socket headers for USCI interfaces (SPI, UART, $\text{I}^2\text{C}$), analog inputs for A/D conversion, and timer outputs for PWM generation[cite: 2].
