@@ -1,5 +1,14 @@
 = Task Description
-This is an example of an introduction chapter. You can write your introduction here. 
+The objective is the complete hardware design of a cost-effective evaluation board for the Texas Instruments `MSP430F5659IPZ` microcontroller in Altium Designer.
+== System & Functional Requirements
+- *Target MCU & Clocks:* The evaluation board is built around the 100-pin MSP430F5659 microcontroller which is operated with a $32.768 "kHz"$ crystal (XT1) and a high-speed oscillator  on XT2 for system and USB PLL clocking.
+- *USB 2.0 Hub & Emulation:* A single USB Type-C host port is connected via a 4-port USB hub (TUSB2046B) to both the target MCU and an on-board eZ-FET Lite programmer/debugger.
+- *Power Supply & UI:* The board uses exclusive USB 2.0 bus-powered operation ($5 "V"$) with a step-down converter, alongside status LEDs and push buttons for reset, BSL invocation, and user I/O.
+- *Breakout Headers:* All remaining target peripherals (USCIx SPI/UART/I2C, ADC12_A, DAC12_A, timer PWM, clock inputs, and MCLK) are routed to $2.54 "mm"$ socket headers.
+
+== Layout, Verification & Manufacturing Outputs
+- *PCB Layout:* The design uses a cost-optimized multi-layer stackup with through-hole vias exclusively, inner supply/GND planes and polygons, impedance-controlled USB differential pairs, and sufficient EMI decoupling.
+- *Manufacturing Outputs:* Design rules are verified according to Eurocircuits Class 6C, followed by the generation of full fabrication, assembly and BOM documentation.
 
 = Schematic Design Considerations
 == Supply Circuit
@@ -85,7 +94,37 @@ Programming and debugging is supported via the 2-wire Spy-Bi-Wire interface usin
 - *Expansion Headers:* Three 20-pin dual-row headers (61302021121) break out the free GPIO, analog, timer PWM, clock , and USCI interfaces.
 - *Testability:* Dedicated test points are placed on the four JTAG lines, the four emulator UART lines, and GND for oscilloscope probe clips.
 = PCB Layout
+== Layer Stackup
+To meet the $1.6 "mm"$ maximum board thickness constraint while balancing routing density on the 60x90mm board a Eurocircuits standard pool 4-layer build-up is used which can be seen in @tab:layer-stack.
 
-= Verification and Output Data
+#figure(
+  table(
+    columns: (auto, 1fr, auto),
+    align: (left, left, right),
+    stroke: 0.5pt + luma(200),
+    fill: (_, row) => if row == 0 { luma(230) } else if calc.odd(row) { luma(250) } else { none },
+
+    table.header[*Layer*][*Material / Type*][*Thickness in mm*],
+    [TOP], [Copper / Signal], [0.035],
+    [Dielectric 1], [Prepreg  PR7628], [0.360],
+    [GND], [Copper / Signal], [0.035],
+    [Core], [FR-4 Improved], [0.710],
+    [POWER], [Copper / Signal], [0.035],
+    [Dielectric 2], [Prepreg PR7628], [0.360],
+    [BOTTOM], [Copper / Signal ], [0.035],
+  ),
+  caption: [Selected 4-layer stack-up (Eurocircuits standard pool)],
+) <tab:layer-stack>
+
+*Stackup Selection Considerations:*
+A 4-layer stack-up was chosen over a 2-layer board because it provides an uninterrupted GND reference plane on layer 2 directly beneath the TOP layer for controlled-impedance USB 2.0 differential pairs. Moreover, dedicated layer 3 can be used as a dedicated POWER layer.
+Both inner layers are defined as signal layers rather than planes in Altium Designer so that multiple supply nets (EZ_3V3, 3V3, VBUS_5V) can be implemented cleanly using poured copper polygons.
+== Design Rules & Manufacturing Constraints
+All PCB design rules were configured according to Eurocircuits Pattern Class 6 and Drill Class C @Eurocircuits_Classification.
+- *Standard Via Dimensions:* A single through-hole via definition with a $0.25 "mm"$ finished hole diameter ($0.35 "mm"$ drill tool size) and $0.60 "mm"$ pad diameter is used across the entire board, giving an inner annular ring of $(0.60 "mm" - 0.35 "mm") / 2 = 0.125 "mm"$ that satisfies Eurocircuits Class 6C.
+- *Via-in-Pad Usage:* Vias placed directly inside pads are specified as capped and filled to prevent solder wicking during reflow soldering @Eurocircuits_ViaInPad.
+- *Fine-Pitch Adjustments:* To prevent false DRC errors on the $0.5 "mm"$ pitch footprints,"MinimumSolderMaskSliver" mask sliver is reduced to $0.1 "mm"$.
+
+== Floorplanning, Routing and EMI Measures
 
 #pagebreak()

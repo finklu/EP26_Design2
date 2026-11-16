@@ -360,6 +360,7 @@
   show figure.where(
     kind: table,
   ): set figure.caption(position: top)
+  show figure.where(kind: table): set align(left)
 
   //add more vertical space between text and start of figures
   //show figure: set block(inset: (top: 0.5em))
