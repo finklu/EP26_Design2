@@ -145,6 +145,8 @@
   report-signature: none,
   report-appendix: none,
   show-list-of: ("figures", "tables", "equations", "listings"), // which lists/outlines to show
+  bib-file: none,      
+  bib-style: "ieee",
   body,
 ) = {
   // Set PDF document metadata.
@@ -561,6 +563,17 @@
 
   body
 
+  // ==========================================================
+  // BIBLIOGRAPHY 
+  // ==========================================================
+  if bib-file != none {
+    pagebreak(weak: true)
+    bibliography(
+      bib-file,
+      title: if is-german [Literaturverzeichnis] else [References],
+      style: bib-style,
+    )
+  }
   // ==========================================================
   // REPORT-SPECIFIC SECTIONS
   // ==========================================================

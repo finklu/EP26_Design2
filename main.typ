@@ -17,6 +17,8 @@
   language: "en",
   doc-type: "report",
   show-list-of: (),
+  bib-file: "/helpers/bib/ECEtempBib.bib", 
+  bib-style: "ieee",          
 
   doc,
 )
