@@ -127,4 +127,18 @@ All PCB design rules were configured according to Eurocircuits Pattern Class 6 a
 
 == Floorplanning, Routing and EMI Measures
 
+=== Floorplanning & Component Placement
+The board is seperated into functional zones:
+- *Left Side (USB, Power & Emulator):* The USB-C receptacle and ESD diode sit at the lower-left edge, followed by the USB hub, the step-down converter kept away from clock resonators and differential pairs and the eZ-FET Lite emulator in the upper-left corner.
+- *Right Side (Target MCU & UI):* The target MCU is centered on the right half with its oscillators and decoupling capacitors placed immediately adjacent to its pins, surrounded by the three 20-pin breakout headers. The UART test points are placed between MCU and Emulator for easier routing.
+- *Mounting:* Four unplated M2 mounting holes are placed in the board corner.
+
+=== Routing & Power Distribution
+- *Impedance-Controlled Differential Pairs:* All USB 2.0 pairs are routed on the Top Layer with a controlled $90 Omega$ differential impedance ($W = 0.25 "mm"$, $S = 0.15 "mm"$) directly over the GND plane on layer 2. The series termination resistors and decoupling capacitors are placed as close to the IC as possible
+- *Supply & Ground Planes:* Supply rails (VBUS_5V, EZ_3V3, 3V3) are distributed via wide copper polygons on POWER layer.
+
+=== EMI & Documentation Measures
+- *Via Stitching & Tenting:* GND stitching vias connect the TOP, GND and BOTTOM ground pours. Via stichting is also used along differential pairs. All non-test-point vias are tented.
+
+
 #pagebreak()
