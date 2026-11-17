@@ -141,7 +141,7 @@
   report-measurement-tables: none,
   report-diagrams: none,
   report-discussion: none,
-  report-instruments: none,
+  report-ai-declaration: none,
   report-signature: none,
   report-appendix: none,
   show-list-of: ("figures", "tables", "equations", "listings"), // which lists/outlines to show
@@ -576,17 +576,20 @@
       style: bib-style,
     )
   }
+
   // ==========================================================
   // REPORT-SPECIFIC SECTIONS
   // ==========================================================
 
   if doc-type == "report" {
-    if language == "de" {
-      heading("Geräteverzeichnis")
-    } else {
-      heading("Instrument Device List")
+    if report-ai-declaration != none {
+      if language == "de" {
+        heading("Erklärung zur Nutzung von KI")
+      } else {
+        heading("AI Usage")
+      }
+      report-ai-declaration
     }
-    include "chapters/report-specific/instrument_device_list.typ"
 
     pagebreak()
     if language == "de" {
@@ -605,7 +608,7 @@
           dir: ttb,
           spacing: 10pt,
           image("assets/graphics/others/signature_" + str(index + 1) + ".jpg", height: 12mm),
-          line(length: 100%,  stroke:0.5pt),
+          line(length: 100%, stroke: 0.5pt),
           author,
           [#meta.location, #date.display("[day]. [month repr:long] [year]")],
         ))]

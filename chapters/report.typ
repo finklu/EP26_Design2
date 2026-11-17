@@ -1,5 +1,5 @@
 = Task Description
-The objective is the complete hardware design of a cost-effective evaluation board for the Texas Instruments `MSP430F5659IPZ` microcontroller in Altium Designer.
+The objective is the complete hardware design of a cost-effective evaluation board for the Texas Instruments MSP430F5659IPZ microcontroller in Altium Designer.
 == System & Functional Requirements
 - *Target MCU & Clocks:* The evaluation board is built around the 100-pin MSP430F5659 microcontroller which is operated with a $32.768 "kHz"$ crystal (XT1) and a high-speed oscillator  on XT2 for system and USB PLL clocking.
 - *USB 2.0 Hub & Emulation:* A single USB Type-C host port is connected via a 4-port USB hub (TUSB2046B) to both the target MCU and an on-board eZ-FET Lite programmer/debugger.
