@@ -25,7 +25,7 @@ $ <eq:saturation-current>
 The efficiency of the converter is mostly dependent on the inductor AC resistance (its quality factor) and also by its inductor DCR value. According to @TaiyoYuden_BRC2012T2R2MD the  used inductor "BRC2012T2R2MD" has a saturation current of 1.1 A and a rated current of 1 A, therefore suited for this design.
 
 === Input and Output Capacitor Selection
-Ceramic capacitors with low ESR values give the lowest output voltage ripple and are recommended by the TPS62237DRYR design. Additionally the output capacitor requires at least a X5R dielectric. The design procedure recommends a 4.7 µF capacitor for input and output. 
+Ceramic capacitors with low ESR values give the lowest output voltage ripple and are recommended by the TPS62237DRYR design. Additionally the output capacitor requires at least an X5R dielectric. The design procedure recommends a 4.7 µF capacitor for input and output. 
 
 #pagebreak()
 
@@ -33,14 +33,14 @@ Ceramic capacitors with low ESR values give the lowest output voltage ripple and
 The Texas Instruments TUSB2046BIRHBT is a 3.3 V CMOS 4-port USB 2.0 full-speed hub controller which requires no external firmware programming @TI_TUSB2046B. It connects the single upstream USB-C host interface via HUB0_D_P/HUB0_D_N to two on-board downstream devices: the target microcontroller  and the eZ-FET Lite emulator.
 
 === Power Mode, EEPROM & Overcurrent Configuration
-Because the evaluation board is powered exclusively through the upstream USB-C port within the 500 mA USB 2.0 bus budget, BUSPWR pin is tied high to EZ_3V3 to configure the hub in bus-powered mode. Additionally the optional serial EEPROM interface is disabled by pulling EXTMEM pin high to EZ_3V3 via $10 "k"Omega$.
-With EXTMEM pulled high, Pin 6 acts as EEDATA/GANGED and is pulled up to EZ_3V3 via $10 "k"Omega$ to select ganged power-management mode. OVRCUR1--OVRCUR4 pins are pulled up to EZ_3V3 through$10 "k"Omega$ to prevent overcurrent fault conditions.
+Because the evaluation board is powered exclusively through the upstream USB-C port within the 500 mA USB 2.0 bus budget, the BUSPWR pin is tied high to EZ_3V3 to configure the hub in bus-powered mode. Additionally the optional serial EEPROM interface is disabled by pulling the EXTMEM pin high to EZ_3V3 via $10 "k"Omega$.
+With EXTMEM pulled high, Pin 6 acts as EEDATA/GANGED and is pulled up to EZ_3V3 via $10 "k"Omega$ to select ganged power-management mode. OVRCUR1--OVRCUR4 pins are pulled up to EZ_3V3 through $10 "k"Omega$ to prevent overcurrent fault conditions.
 
 === Clock Generation
 The TUSB2046B operates from a 6 MHz reference clock using its internal PLL to generate the 48 MHz USB sampling clock. Therefore, both TSTMODE and TSTPLL/48MCLK  are tied to GND, and the 6 MHz ceramic resonator  (Murata CSTCR6M00G53-R0) with integrated $15 "pF"$ load capacitors is connected. A $1.5 "k"Omega$ damping resistor is placed in series with `XTAL2` to prevent overdriving the ceramic resonator and ensure reliable startup across supply and temperature variations.
 
 === Power-On Reset
-The active-low RESET pin requires a low pulse width between $100 "µs"$ and $1 "ms"$ after `EZ_3V3` reaches 90% its nominal $3.3 "V"$ level, with the 6 MHz clock stable during the final $60 "µs"$ of the reset window @TI_TUSB2046B. Therefore, the RC network consisting of $47 "k"Omega$ and $100 "nF"$ is connected to RESET.
+The active-low RESET pin requires a low pulse width between $100 "µs"$ and $1 "ms"$ after `EZ_3V3` reaches 90% of its nominal $3.3 "V"$ level, with the 6 MHz clock stable during the final $60 "µs"$ of the reset window @TI_TUSB2046B. Therefore, the RC network consisting of $47 "k"Omega$ and $100 "nF"$ is connected to RESET.
 
 $ tau = R dot C = 47 "k"Omega dot 100 "nF" = 4.7 "ms" $ <eq:reset-rc>
 
@@ -60,7 +60,7 @@ To adequately suppress electromagnetic interference (EMI) in accordance with the
 
 == UI
 === Indicator LEDs
-Five status LEDs are driven directly by general-purpose I/O pins of the MCU. Each LED is placed in series with a $470 Omega$ resistor to limit GPIO sink/source current. The red LED (APTD1608LSECK/J3-PF) has the smallest forward voltage $V_F=1.8 $ V, therefore experiences the highest forward current.
+Five status LEDs are driven directly by general-purpose I/O pins of the MCU. Each LED is placed in series with a $470 Omega$ resistor to limit GPIO sink/source current. The red LED (APTD1608LSECK/J3-PF) has the smallest forward voltage $V_F = 1.8 "V"$, therefore experiences the highest forward current.
 
 $
   I_F = frac(V_("3V3") - V_F, R_s) = frac(3.3 "V" - 1.8 "V", 470 Omega) = 3.19 "mA"
@@ -72,7 +72,7 @@ The target microcontroller is the Texas Instruments MSP430F5659IPZ in a 100-pin 
 
 === Power Supply & Internal Regulator Decoupling
 To satisfy the recommended operating conditions of the MSP430F5659, all digital and analog supply pins are powered from the 3V3 rail so that the voltage difference between AVCC and DVCC remains within the $0.3 "V"$ maximum limit during power-up and operation. Each supply pin is decoupled with $100 "nF"$ capacitors.
-Because no external backup battery is used, the battery backup supply input VBAT is tied directly to 3V3. Additinally the internal backup domain supply node VBAK is decoupled with $4.7 "nF"$ @TI_MSP430F5659[p. 24]. The integrated linear regulators VCORE @TI_MSP430F5659[p. 24] and USB supply pins are decoupled according to datasheet specifications VBUS and VUSB @TI_MSP430F5659[p. 59].
+Because no external backup battery is used, the battery backup supply input VBAT is tied directly to 3V3. Additionally the internal backup domain supply node VBAK is decoupled with $4.7 "nF"$ @TI_MSP430F5659[p. 24]. The integrated linear regulators VCORE @TI_MSP430F5659[p. 24] and USB supply pins are decoupled according to datasheet specifications VBUS and VUSB @TI_MSP430F5659[p. 59].
 
 
 === Clock Generation
@@ -81,10 +81,10 @@ The Unified Clock System (UCS) uses two external crystals:
 - *Low-Frequency Oscillator XT1:* A $32.768 "kHz"$ crystal (MC-306 32.7680K-A0 ROHS) is connected across XIN and XOUT and also integrates internal load capacitors.
 
 === USB Interface & Bootloader (BSL) Control
-The target MCU communicates with downstream port 1 of the USB hub. Signal integrity and EMI suppression are ensured by $27 Omega$ series termination resistors  and $22 "pF"$ filter capacitors. A $1.4 "k"Omega$ resistor connects PUR pin to the USB DP line and the TARGET_PUR net. 
+The target MCU communicates with downstream port 1 of the USB hub. Signal integrity and EMI suppression are ensured by $27 Omega$ series termination resistors  and $22 "pF"$ filter capacitors. A $1.4 "k"Omega$ resistor connects the PUR pin to the USB DP line and the TARGET_PUR net. 
 
 === Debug Interface
-Programming and debugging is supported via the 2-wire Spy-Bi-Wire interface using RST/NMI/SBWTDIO  and TEST/SBWTCK, which connect directly to the on-board eZ-FET Lite emulator. The four standard JTAG signals are broken out to test points on the top-level sheet for optional external JTAG probing.
+Programming and debugging are supported via the 2-wire Spy-Bi-Wire interface using RST/NMI/SBWTDIO  and TEST/SBWTCK, which connect directly to the on-board eZ-FET Lite emulator. The four standard JTAG signals are broken out to test points on the top-level sheet for optional external JTAG probing.
 
 
 == Top Level Design Choices
@@ -95,7 +95,7 @@ Programming and debugging is supported via the 2-wire Spy-Bi-Wire interface usin
 - *Testability:* Dedicated test points are placed on the four JTAG lines, the four emulator UART lines, and GND for oscilloscope probe clips.
 = PCB Layout
 == Layer Stackup
-To meet the $1.6 "mm"$ maximum board thickness constraint while balancing routing density on the 60x90mm board a Eurocircuits standard pool 4-layer build-up is used which can be seen in @tab:layer-stack.
+To meet the $1.6 "mm"$ maximum board thickness constraint while balancing routing density on the $60 dot 90 "mm"$ board a Eurocircuits standard pool 4-layer build-up is used which can be seen in @tab:layer-stack.
 
 #figure(
   table(
@@ -128,17 +128,34 @@ All PCB design rules were configured according to Eurocircuits Pattern Class 6 a
 == Floorplanning, Routing and EMI Measures
 
 === Floorplanning & Component Placement
-The board is seperated into functional zones:
+The board is separated into functional zones:
 - *Left Side (USB, Power & Emulator):* The USB-C receptacle and ESD diode sit at the lower-left edge, followed by the USB hub, the step-down converter kept away from clock resonators and differential pairs and the eZ-FET Lite emulator in the upper-left corner.
 - *Right Side (Target MCU & UI):* The target MCU is centered on the right half with its oscillators and decoupling capacitors placed immediately adjacent to its pins, surrounded by the three 20-pin breakout headers. The UART test points are placed between MCU and Emulator for easier routing.
-- *Mounting:* Four unplated M2 mounting holes are placed in the board corner.
+- *Mounting:* Four unplated M2 mounting holes are placed in the board corners.
 
 === Routing & Power Distribution
 - *Impedance-Controlled Differential Pairs:* All USB 2.0 pairs are routed on the Top Layer with a controlled $90 Omega$ differential impedance ($W = 0.25 "mm"$, $S = 0.15 "mm"$) directly over the GND plane on layer 2. The series termination resistors and decoupling capacitors are placed as close to the IC as possible
 - *Supply & Ground Planes:* Supply rails (VBUS_5V, EZ_3V3, 3V3) are distributed via wide copper polygons on POWER layer.
 
 === EMI & Documentation Measures
-- *Via Stitching & Tenting:* GND stitching vias connect the TOP, GND and BOTTOM ground pours. Via stichting is also used along differential pairs. All non-test-point vias are tented.
+- *Via Stitching & Tenting:* GND stitching vias connect the TOP, GND and BOTTOM ground pours. Via stitchting is also used along differential pairs. All non-test-point vias are tented.
+#pagebreak()
+= Verification and Output Data
+
+== Design Rule & Manufacturing Verification
+Prior to generating manufacturing data, the hierarchical schematic project was compiled with zero Electrical Rule Check (ERC) errors, and a full Design Rule Check (DRC) was executed against the configured Eurocircuits Class 6C rule set
+#figure(
+   image("../assets/graphics/report/DRCcheck.png", width: 100%),
+   caption: [Altium Designer DRC],
+) <fig:altium-drc>
+To verify manufacturability, the exported Gerber X2 archive was uploaded to Eurocircuits. The automated analysis confirmed: Compliance with Eurocircuits Pattern Class 6 and Drill Class C.
+
+
+#figure(
+   image("../assets/graphics/report/Eurocircuits.png", width: 100%),
+   caption: [Eurocircuits PCB Visualizer verification with technology class 6C.],
+) <fig:eurocircuits-drc>
+
 
 
 #pagebreak()

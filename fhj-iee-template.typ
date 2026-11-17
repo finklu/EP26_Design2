@@ -367,9 +367,9 @@
 
   set figure(gap: 1.5em)
 
-  show figure.caption: it => text(
+  show figure.caption: it => align(left, text(
     [*#it.supplement #it.counter.display(it.numbering):* #it.body],
-  )
+  ))
 
   set align(left) // align text left (i.e. no longer centered)
 
@@ -569,9 +569,10 @@
   // ==========================================================
   if bib-file != none {
     pagebreak(weak: true)
+    heading(if is-german [Literaturverzeichnis] else [References])
     bibliography(
       bib-file,
-      title: if is-german [Literaturverzeichnis] else [References],
+      title: none,
       style: bib-style,
     )
   }
@@ -581,17 +582,17 @@
 
   if doc-type == "report" {
     if language == "de" {
-      heading(outlined: false, numbering: none, "Geräteverzeichnis")
+      heading("Geräteverzeichnis")
     } else {
-      heading(outlined: false, numbering: none, "Instrument Device List")
+      heading("Instrument Device List")
     }
     include "chapters/report-specific/instrument_device_list.typ"
 
     pagebreak()
     if language == "de" {
-      heading(outlined: false, numbering: none, "Unterschriften")
+      heading("Unterschriften")
     } else {
-      heading(outlined: false, numbering: none, "Signatures")
+      heading("Signatures")
     }
 
     align(horizon, table(
@@ -603,7 +604,7 @@
         [#align(center, stack(
           dir: ttb,
           spacing: 10pt,
-          image("assets/graphics/others/signature_" + str(index + 1) + ".jpg", height: 10mm),
+          image("assets/graphics/others/signature_" + str(index + 1) + ".jpg", height: 12mm),
           line(length: 100%,  stroke:0.5pt),
           author,
           [#meta.location, #date.display("[day]. [month repr:long] [year]")],
