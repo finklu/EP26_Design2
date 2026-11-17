@@ -52,7 +52,7 @@ This $3.7 "ms"$ hold time exceeds the minimum $100 "µs"$ reset requirement so t
 
 === USB 2.0 Signal Integrity & Termination
 To adequately suppress electromagnetic interference (EMI) in accordance with the TUSB2046B typical application circuit @TI_TUSB2046B[p. 16], the following termination and protective components are used in the design:
-- *Termination* $27 Omega$ series resistors on upstream and downstream ports
+- *Termination* $27 thin Omega$ series resistors on upstream and downstream ports
 - *EMI Filtering:* $22 "pF"$ filter capacitors are connected to GND for all USB data lanes.
 - *Upstream Pull-Up & ESD Protection:* A $1.5 "k"Omega$ resistor pulls DP0 to EZ_3V3 to identify the hub as a full-speed USB device to the host. Moreover a  TVS diode array (TPD2E009DBZR) protects the  USB-C data lines against ESD transients.
 - *Downstream Pull-Downs:* Active downstream ports (HUB1 and HUB2) include $15 "k"Omega$ pull-down resistors to GND for host disconnect detection. Unused downstream ports (HUB3 and HUB4) are terminated to GND via $15 "k"Omega$ resistors.
@@ -60,7 +60,7 @@ To adequately suppress electromagnetic interference (EMI) in accordance with the
 
 == UI
 === Indicator LEDs
-Five status LEDs are driven directly by general-purpose I/O pins of the MCU. Each LED is placed in series with a $470 Omega$ resistor to limit GPIO sink/source current. The red LED (APTD1608LSECK/J3-PF) has the smallest forward voltage $V_F = 1.8 "V"$, therefore experiences the highest forward current.
+Five status LEDs are driven directly by general-purpose I/O pins of the MCU. Each LED is placed in series with a $470 thin Omega$ resistor to limit GPIO sink/source current. The red LED (APTD1608LSECK/J3-PF) has the smallest forward voltage $V_F = 1.8 "V"$, therefore experiences the highest forward current.
 
 $
   I_F = frac(V_("3V3") - V_F, R_s) = frac(3.3 "V" - 1.8 "V", 470 Omega) = 3.19 "mA"
@@ -81,7 +81,7 @@ The Unified Clock System (UCS) uses two external crystals:
 - *Low-Frequency Oscillator XT1:* A $32.768 "kHz"$ crystal (MC-306 32.7680K-A0 ROHS) is connected across XIN and XOUT and also integrates internal load capacitors.
 
 === USB Interface & Bootloader (BSL) Control
-The target MCU communicates with downstream port 1 of the USB hub. Signal integrity and EMI suppression are ensured by $27 Omega$ series termination resistors  and $22 "pF"$ filter capacitors. A $1.4 "k"Omega$ resistor connects the PUR pin to the USB DP line and the TARGET_PUR net. 
+The target MCU communicates with downstream port 1 of the USB hub. Signal integrity and EMI suppression are ensured by $27 thin Omega$ series termination resistors  and $22 "pF"$ filter capacitors. A $1.4 "k"Omega$ resistor connects the PUR pin to the USB DP line and the TARGET_PUR net. 
 
 === Debug Interface
 Programming and debugging are supported via the 2-wire Spy-Bi-Wire interface using RST/NMI/SBWTDIO  and TEST/SBWTCK, which connect directly to the on-board eZ-FET Lite emulator. The four standard JTAG signals are broken out to test points on the top-level sheet for optional external JTAG probing.
@@ -134,7 +134,7 @@ The board is separated into functional zones:
 - *Mounting:* Four unplated M2 mounting holes are placed in the board corners.
 
 === Routing & Power Distribution
-- *Impedance-Controlled Differential Pairs:* All USB 2.0 pairs are routed on the Top Layer with a controlled $90 Omega$ differential impedance ($W = 0.25 "mm"$, $S = 0.15 "mm"$) directly over the GND plane on layer 2. The series termination resistors and decoupling capacitors are placed as close to the IC as possible
+- *Impedance-Controlled Differential Pairs:* All USB 2.0 pairs are routed on the Top Layer with a controlled $90 thin Omega$ differential impedance ($W = 0.25 "mm"$, $S = 0.15 "mm"$) directly over the GND plane on layer 2. The series termination resistors and decoupling capacitors are placed as close to the IC as possible
 - *Supply & Ground Planes:* Supply rails (VBUS_5V, EZ_3V3, 3V3) are distributed via wide copper polygons on POWER layer.
 
 === EMI & Documentation Measures
