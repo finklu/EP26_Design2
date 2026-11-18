@@ -9,6 +9,25 @@
 #import "@preview/glossarium:0.5.10": gls, glspl, make-glossary, register-glossary
 #import "helpers/glossary-definitions.typ": gls-entries
 
+// --- Helper: Embed Multi-Page PDFs (Add above fhj-iee-template) ---
+#let embed-pdf(path, pages: 1, title: none, angle: -90deg) = {
+  if title != none {
+    heading(level: 1, title)
+  }
+  for page-num in range(1, pages + 1) {
+    figure(
+      rotate(
+        angle,
+        reflow: true,
+        image(path, page: page-num, height: 14cm),
+      ),
+    )
+    if page-num < pages {
+      pagebreak(weak: true)
+    }
+  }
+}
+
 // --- Colors defined in IEEconfig.sty ---
 #let den-col = rgb(35, 171, 196)
 #let den-col-dark = rgb(28, 136, 156)
@@ -581,21 +600,23 @@
   // REPORT-SPECIFIC SECTIONS
   // ==========================================================
 
-  if doc-type == "report" {
+if doc-type == "report" {
+    // 1. AI Declaration (Replaces Instrument Device List)
     if report-ai-declaration != none {
       if language == "de" {
-        heading("Erklärung zur Nutzung von KI")
+        heading(outlined: true, "KI-Erklärung")
       } else {
-        heading("AI Usage")
+        heading(outlined: true, "AI Usage")
       }
       report-ai-declaration
     }
-
     pagebreak()
+
+    // 2. Signatures (Numbered normally under main numbering)
     if language == "de" {
-      heading("Unterschriften")
+      heading(outlined: true, "Unterschriften")
     } else {
-      heading("Signatures")
+      heading(outlined: true, "Signatures")
     }
 
     align(horizon, table(
@@ -607,13 +628,20 @@
         [#align(center, stack(
           dir: ttb,
           spacing: 10pt,
-          image("assets/graphics/others/signature_" + str(index + 1) + ".jpg", height: 12mm),
-          line(length: 100%, stroke: 0.5pt),
+          image("assets/graphics/others/signature_" + str(index + 1) + ".jpg", height: 15mm),
+          line(length: 100%,  stroke:0.5pt),
           author,
           [#meta.location, #date.display("[day]. [month repr:long] [year]")],
         ))]
         v(2.5em, weak: true)
       }
     ))
+
+    // 3. APPENDIX (Switched to letter numbering A.1 here at the very end)
+    pagebreak()
+    counter(heading).update(0)
+    set heading(numbering: "A.1")
+    
+    include "chapters/appendix.typ"
   }
 }

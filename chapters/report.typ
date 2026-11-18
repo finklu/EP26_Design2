@@ -143,7 +143,7 @@ The board is separated into functional zones:
 = Verification and Output Data
 
 == Design Rule & Manufacturing Verification
-Prior to generating manufacturing data, the hierarchical schematic project was compiled with zero Electrical Rule Check (ERC) errors, and a full Design Rule Check (DRC) was executed against the configured Eurocircuits Class 6C rule set
+Prior to generating manufacturing data, the hierarchical schematic project was compiled with zero Electrical Rule Check (ERC) errors, and a full Design Rule Check (DRC) was executed against the configured Eurocircuits Class 6C rule set.
 #figure(
    image("../assets/graphics/report/DRCcheck.png", width: 100%),
    caption: [Altium Designer DRC],
