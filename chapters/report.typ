@@ -11,6 +11,7 @@ The objective is the complete hardware design of a cost-effective evaluation boa
 - *Manufacturing Outputs:* Design rules are verified according to Eurocircuits Class 6C, followed by the generation of full fabrication, assembly and BOM documentation.
 
 = Schematic Design Considerations
+The complete schematic can be seen in Appendix B and the Draftsman is displayed in Appendix A.
 == Supply Circuit
 For the supply of the evaluation board, the TPS62237DRYR step-down converter is used. This buck-converter with its small USON-package is designed for low-power applications and provides a peak output current of up to 500 mA. The converter has a fixed output voltage of 3.3 V with an input voltage range of 2.05 V to 6 V. A buck converter was chosen over an LDO because of its higher efficiency and lower power dissipation. The EN-pin is directly tied to VBUS_5V for automatic startup at USB connection. The design was created as described in the "Detailed Design Procedure" in @TI_TPS62230.
 === Inductor Selection
